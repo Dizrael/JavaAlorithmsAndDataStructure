@@ -6,22 +6,29 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-//        MyTreeMap<Integer, Integer> mtm = new MyTreeMap<>();
-
+//        MyTreeMap<Integer, String> mtm = new MyTreeMap<>();
         Random random = new Random();
         int treeNumber = 20;
-        int treeDeep = 6;
+        int balanced = 0;
 
-        List mtmArray = new ArrayList();
+        MyTreeMap<Integer, String>[] mtmArray = new MyTreeMap[treeNumber];
         for (int i = 0; i < treeNumber; i++) {
-            mtmArray.set(i, new MyTreeMap<Integer, Integer>());
-            while(((MyTreeMap) mtmArray.get(i)).sizeLeftBranch() != treeDeep ||((MyTreeMap) mtmArray.get(i)).sizeRightBranch() != treeDeep) {
-            int value = random.nextInt(201) - 100;
-            ((MyTreeMap) mtmArray.get(i)).put(value, value);
-            }
-//            System.out.println(mtmArray[i].sizeLeftBranch());
+            mtmArray[i] = new MyTreeMap<>();
+            do {
+                int value = random.nextInt(201) - 100;
+                mtmArray[i].put(value, "");
+            } while (mtmArray[i].height() < 6);
+//            System.out.println(mtmArray[i].sizeLeftBranch() + "   " + mtmArray[i].sizeRightBranch());
+            if(Math.abs((mtmArray[i].sizeLeftBranch() - mtmArray[i].sizeRightBranch())) <= 1){
+              balanced++;
+          }
         }
 
+        System.out.println("Number of balanced trees: " + balanced);
+    }
 
+    public static int log2(int n){
+        if(n <= 0) throw new IllegalArgumentException();
+        return 31 - Integer.numberOfLeadingZeros(n);
     }
 }

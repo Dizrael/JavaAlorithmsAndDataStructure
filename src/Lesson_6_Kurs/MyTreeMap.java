@@ -1,7 +1,7 @@
 package Lesson_6_Kurs;
 
 public class MyTreeMap<Key extends Comparable<Key>, Value> {
-   // ссылка на корневой элемент
+    // ссылка на корневой элемент
     Node root;
 
     private class Node {
@@ -9,6 +9,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         Value value;
         Node left;
         Node right;
+        int height;
 
         int size;
 
@@ -16,6 +17,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
             this.key = key;
             this.value = value;
             size = 1;
+            height = log2(size);
         }
     }
 
@@ -30,12 +32,25 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         return node.size;
     }
 
+    public int height (){
+        return height(root);
+    }
+
+    private int height(Node node){
+        if (node == null) {
+            return -1;
+        }
+        int heeight = log2(node.size);
+        return heeight;
+    }
+
     public int sizeLeftBranch(){return sizeLeftBranch(root);}
 
     private int sizeLeftBranch(Node node) {
         if (node == null) {
             return 0;
         }
+        node.left.size += 1;;
         return node.left.size;
     }
 
@@ -46,6 +61,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         if (node == null) {
             return 0;
         }
+        node.right.size += 1;
         return node.right.size;
     }
 
@@ -201,5 +217,9 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         return node;
     }
 
+    public static int log2(int n){
+        if(n <= 0) throw new IllegalArgumentException();
+        return 31 - Integer.numberOfLeadingZeros(n);
+    }
 
 }
