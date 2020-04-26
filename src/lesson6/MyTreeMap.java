@@ -1,4 +1,4 @@
-package Lesson_6_Kurs;
+package lesson6;
 
 public class MyTreeMap<Key extends Comparable<Key>, Value> {
     // ссылка на корневой элемент
